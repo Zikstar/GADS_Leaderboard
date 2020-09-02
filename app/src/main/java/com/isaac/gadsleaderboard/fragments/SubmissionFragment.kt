@@ -2,10 +2,12 @@ package com.isaac.gadsleaderboard.fragments
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.isaac.gadsleaderboard.Constants
 import com.isaac.gadsleaderboard.MainActivity
@@ -34,8 +36,16 @@ class SubmissionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mainActivity.adjustToolbarBasedOnFragment(Constants.FRAGMENT_SUBMISSION)
+        mainViewModel.responseLiveData.observe(viewLifecycleOwner, Observer { response ->
+            if(response.isSuccessful){
+                Log.i("Post Form gads", "Successful")
+                val raw = response.raw()
+            }else{
+                Log.i("Post Form gads", "Failure to post gads")
+            }
+        })
 
-        submit_button.setOnClickListener {
+        btn_submit_project.setOnClickListener {
             val firstName = editTextFirstName.text.toString().trim()
             val lastName = editTextLastName.text.toString().trim()
             val email = editTextTextEmailAddress.text.toString().trim()

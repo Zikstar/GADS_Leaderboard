@@ -1,16 +1,19 @@
 package com.isaac.gadsleaderboard
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
-import androidx.lifecycle.viewModelScope
+import android.util.Log
+import android.widget.Toast
+import androidx.lifecycle.*
 import com.isaac.gadsleaderboard.data.GadsRepository
 import com.isaac.gadsleaderboard.data.models.LearnerHoursResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import retrofit2.Response
 
 class MainViewModel : ViewModel() {
 
     private val repository = GadsRepository()
+    private var _responseLiveData = MutableLiveData<Response<Void>>()
+    val responseLiveData: LiveData<Response<Void>> = _responseLiveData
 
 
     val learnersByHour = liveData(Dispatchers.IO) {
@@ -31,7 +34,9 @@ class MainViewModel : ViewModel() {
         projectLink : String
     ){
         viewModelScope.launch {
-            repository.submitProjectToForm(email, firstName, lastName, projectLink)
+            val response = repository.submitProjectToForm(email, firstName, lastName, projectLink)
+            _responseLiveData.value = response
         }
+
     }
 }
