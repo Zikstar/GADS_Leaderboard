@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="learnerInfoHour"
+            type="com.isaac.gadsleaderboard.data.models.LearnerHoursResponseItem" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        app:cardElevation="3dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="10dp">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintStart_toEndOf="@+id/iv_icon_learner"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Pharis Muglai"
+                android:text="@{learnerInfoHour.name}"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintStart_toStartOf="@+id/textView"
+                app:layout_constraintTop_toBottomOf="@+id/textView"
+                app:learnHours="@{learnerInfoHour.hours}"
+                app:country="@{learnerInfoHour.country}"
+                tools:text="233 Learning hours, Kenya" />
+
+
+            <ImageView
+                android:id="@+id/iv_icon_learner"
+                android:layout_width="100dp"
+                android:layout_height="70dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="30dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:imageUrl="@{learnerInfoHour.badgeUrl}"
+                tools:srcCompat = "@drawable/top_learner"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>
